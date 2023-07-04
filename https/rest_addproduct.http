@@ -1,0 +1,11 @@
+POST https://a0aq2g3pdh.execute-api.us-east-1.amazonaws.com/default/add_product_2
+
+Content-Type: application/json
+
+{
+    "product_id":"awdd",
+    "product_name":"Banana",
+    "product_price":500,
+    "product_category":"fruit"
+    
+}
