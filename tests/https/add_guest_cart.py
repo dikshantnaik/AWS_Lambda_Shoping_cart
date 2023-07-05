@@ -1,11 +1,11 @@
 import requests
 import json
 
-url = 'https://a0aq2g3pdh.execute-api.us-east-1.amazonaws.com/default/add_product_2'
+url = 'https://gmzungq13g.execute-api.us-east-1.amazonaws.com/default/add_to_cart_guest'
 payload = {
-    'product_name': 'Banana',
-    'product_price': 500,
-    'product_discription': 'A Cool Procuct '
+    "items": [
+        "3e310daa-d58a-45db-8a34-f5f1c75d36e8"
+    ]
 }
 
 headers = {

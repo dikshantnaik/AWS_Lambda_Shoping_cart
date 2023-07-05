@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      .cart-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+
+      body {
+        background: linear-gradient(to bottom, #f6f6f6, #ffffff);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Product Page</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="add-product.html">Add Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cart/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-shopping-cart"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.56 13.65a2 2 0 0 0 2.42 1.5H18"></path>
+                <path d="M1 1h4l2.04 10.24A2 2 0 0 0 9 13h10"></path>
+              </svg>
+              Cart
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Product List</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% for product in products %}
+        <div class="col-md-3">
+          <div class="card">
+            <img
+              src="{{ product.product_img }}"
+              class="card-img-top"
+              alt="Product Image 1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.product_name }}</h5>
+              <p class="card-text">{{ product.product_discription }}</p>
+              <p class="card-text">{{ product.product_price }}</p>
+              <!-- Price tag added -->
+               <form method="POST" action="/add_to_cart/">
+                 {% csrf_token %}
+
+              <button name="item_id" value = '{{ product.product_id }}' class="btn btn-primary">Add to Cart</a>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% comment %}
+        <div class="col-md-3">
+          <div class="card">
+            <img src="image2.jpg" class="card-img-top" alt="Product Image 2" />
+            <div class="card-body">
+              <h5 class="card-title">Product 2</h5>
+              <p class="card-text">Description of Product 2.</p>
+              <a href="#" class="btn btn-primary">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+        {% endcomment %}
+      </div>
+    </div>
+
+    <!-- Cart Icon -->
+    <!-- <a href="cart.html" class="cart-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-shopping-cart">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.56 13.65a2 2 0 0 0 2.42 1.5H18"></path>
+            <path d="M1 1h4l2.04 10.24A2 2 0 0 0 9 13h10"></path>
+        </svg>
+    </a> -->
+  </body>
+</html>
+{% if show_alert %}
+<script>
+    alert("{{ alert_message }}");
+    window.location.href = "/products/";
+
+</script>
+{% endif %}
+
+{% load static %}
+
+<!-- Your HTML template content here -->
+
+<script src="{% static 'js/product.js' %}"></script>
