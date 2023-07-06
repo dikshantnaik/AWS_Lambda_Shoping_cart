@@ -1,11 +1,12 @@
+from constants import LOGIN_ENDPOINT, REGISTER_ENDPOINT
 import json
 from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 import requests
-
-REGISTER_ENDPOINT = "https://riwt5hd79f.execute-api.us-east-1.amazonaws.com/default/register_user"
+import sys
+sys.path.append("..")
 
 
 def register_view(request):
@@ -18,5 +19,24 @@ def register_view(request):
             }
             print(data)
             response = requests.post(REGISTER_ENDPOINT, json=data)
+
             print(response.text)
-            return HttpResponseRedirect("/products")
+            return HttpResponse('Registered ')
+
+
+def login_view(request):
+    if request.method == "POST":
+
+        data = {
+            "username": request.POST.get('username'),
+            "password": request.POST.get('password'),
+        }
+        if request.session.get('cart_id'):
+            data['cart_id'] = request.session.get('cart_id')
+        response = requests.post(LOGIN_ENDPOINT, json=data)
+
+        data = response.json()
+        print(response.text)
+        request.session['name'] = data['name']
+        request.session['user_id'] = data['user_id']
+        return HttpResponse(data['msg'])
