@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render
 
 LIST_PRODUCT_ENDPOINT = "https://6owwy9eo22.execute-api.us-east-1.amazonaws.com/default/listt_product"
+LIST_GUEST_CART_ENDPOINT = "https://wxbh5t09za.execute-api.us-east-1.amazonaws.com/default/list_cart_guest"
 
 
 def products_view(request):
@@ -9,6 +10,19 @@ def products_view(request):
     response = requests.get(LIST_PRODUCT_ENDPOINT)
     products = response.json()
     return render(request, 'products.html', {'products': products})
+
+
+def cart_view(request):
+    cart_id = request.session.get('cart_id')
+    response = requests.get(LIST_GUEST_CART_ENDPOINT+"?cart_id="+cart_id)
+    cart_items = response.json()
+    print(cart_items)
+    return render(request, 'cart.html', {'cart': cart_items})
+
+
+def register_view(request):
+
+    return render(request, "register.html")
 
 
 def add_to_cart_view(request):

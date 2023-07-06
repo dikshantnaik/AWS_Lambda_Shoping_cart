@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .product-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      .navbar {
+        background-color: #f8f9fa;
+      }
+
+      .navbar .nav-link {
+        color: #333;
+      }
+
+      .navbar .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+      }
+
+      .page-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .delete-button {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="page-title" style="font-size: 42px">Your Cart</h1>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        {% for cart_item in cart %}
+        <div class="col-md-12">
+          <div class="product-item">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="{{ cart_item.product_img }}"
+                  alt="Product 1"
+                  style="max-width: 100%"
+                />
+              </div>
+              <div class="col-md-6">
+                <h4>{{ cart_item.product_name }}</h4>
+                <p>{{ cart_item.product_discription }}</p>
+                <p>Price: ${{ cart_item.price }}</p>
+                <button class="delete-button btn btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- Add more product items as needed -->
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h4>Total Price: $44.98</h4>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
